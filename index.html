@@ -251,6 +251,7 @@
     }
 
     .image-frame {
+      position: relative;
       border: 1px solid var(--border-green);
       border-radius: 10px;
       overflow: hidden;
@@ -267,6 +268,19 @@
 
     .design-card:hover .image-frame img {
       transform: scale(1.04);
+    }
+
+    /* Carousel Overlay Badge for Multi-Image Posts */
+    .carousel-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      pointer-events: none;
     }
 
     .card-info h3 {
@@ -303,9 +317,17 @@
       display: flex;
     }
 
-    .lightbox-img {
+    .lightbox-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       max-width: 90%;
-      max-height: 80vh;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 75vh;
       border: 4px solid #ffffff;
       border-radius: 12px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -334,6 +356,35 @@
 
     .close-btn:hover {
       transform: scale(1.2);
+    }
+
+    /* Lightbox Navigation Controls */
+    .lightbox-nav {
+      display: none;
+      margin-top: 10px;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .lightbox-btn {
+      background: var(--border-green);
+      color: #ffffff;
+      border: 1px solid var(--accent-gold);
+      padding: 6px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: 'Comfortaa', sans-serif;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .lightbox-btn:hover {
+      background: var(--text-title);
+    }
+
+    .lightbox-counter {
+      color: #ffffff;
+      font-size: 0.9rem;
     }
 
     /* Formal Footer Styling */
@@ -526,13 +577,15 @@
 
       <div class="portfolio-grid">
 
-        <article class="design-card" onclick="openLightbox('D1.png', '01. Midnight Melancholia Collage')">
+        <!-- Updated First Post: Instagram Multi-Slide Carousel for Psychology Oversimplified -->
+        <article class="design-card" onclick="openMultiLightbox(['1.png', '2.png', '3.png', '4.png', '5.png', '6.png'], '01. Psychology Oversimplified Carousel')">
           <div class="image-frame">
-            <img src="D1.png" alt="Design 1">
+            <img src="1.png" alt="Psychology Oversimplified Slide 1">
+            <span class="carousel-badge">1/6 🎴</span>
           </div>
           <div class="card-info">
-            <h3>01. Midnight Melancholia Collage</h3>
-            <p><strong>Style:</strong> Mixed-Media Surreal Collage & Indigo Moodboard.<br><strong>Inspiration:</strong> Dreamy vinyl sleeves, Monet waterlilies, and soft retro indie-pop aesthetics.</p>
+            <h3>01. Psychology Oversimplified</h3>
+            <p><strong>Style:</strong> Educational Social Media Carousel & Infographic Layout.<br><strong>Inspiration:</strong> Instagram carousels, soft pastel color blocking, accessible mental health communication, and clean minimal typography.</p>
           </div>
         </article>
 
@@ -732,21 +785,75 @@
 
   </div>
 
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <span class="close-btn">&times;</span>
-    <img id="lightbox-img" class="lightbox-img" src="" alt="Enlarged View">
-    <div id="lightbox-caption" class="lightbox-caption"></div>
+  <div class="lightbox" id="lightbox" onclick="handleLightboxClick(event)">
+    <span class="close-btn" onclick="closeLightbox()">&times;</span>
+    <div class="lightbox-content">
+      <img id="lightbox-img" class="lightbox-img" src="" alt="Enlarged View">
+      <div id="lightbox-caption" class="lightbox-caption"></div>
+      <div id="lightbox-nav" class="lightbox-nav">
+        <button class="lightbox-btn" onclick="prevSlide(event)">❮ Prev</button>
+        <span id="lightbox-counter" class="lightbox-counter">1 / 1</span>
+        <button class="lightbox-btn" onclick="nextSlide(event)">Next ❯</button>
+      </div>
+    </div>
   </div>
 
   <script>
+    let currentGalleryImages = [];
+    let currentImageIndex = 0;
+    let currentGalleryTitle = '';
+
     function openLightbox(src, title) {
-      const lightbox = document.getElementById('lightbox');
+      currentGalleryImages = [src];
+      currentImageIndex = 0;
+      currentGalleryTitle = title;
+      updateLightboxDisplay();
+      
+      document.getElementById('lightbox-nav').style.display = 'none';
+      document.getElementById('lightbox').classList.add('active');
+    }
+
+    function openMultiLightbox(imagesArray, title) {
+      currentGalleryImages = imagesArray;
+      currentImageIndex = 0;
+      currentGalleryTitle = title;
+      updateLightboxDisplay();
+
+      document.getElementById('lightbox-nav').style.display = 'flex';
+      document.getElementById('lightbox').classList.add('active');
+    }
+
+    function updateLightboxDisplay() {
       const img = document.getElementById('lightbox-img');
       const caption = document.getElementById('lightbox-caption');
+      const counter = document.getElementById('lightbox-counter');
+
+      img.src = currentGalleryImages[currentImageIndex];
+      caption.textContent = currentGalleryTitle;
       
-      img.src = src;
-      caption.textContent = title;
-      lightbox.classList.add('active');
+      if (currentGalleryImages.length > 1) {
+        counter.textContent = `${currentImageIndex + 1} / ${currentGalleryImages.length}`;
+      }
+    }
+
+    function prevSlide(event) {
+      if (event) event.stopPropagation();
+      if (currentGalleryImages.length <= 1) return;
+      currentImageIndex = (currentImageIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+      updateLightboxDisplay();
+    }
+
+    function nextSlide(event) {
+      if (event) event.stopPropagation();
+      if (currentGalleryImages.length <= 1) return;
+      currentImageIndex = (currentImageIndex + 1) % currentGalleryImages.length;
+      updateLightboxDisplay();
+    }
+
+    function handleLightboxClick(event) {
+      if (event.target.id === 'lightbox') {
+        closeLightbox();
+      }
     }
 
     function closeLightbox() {
