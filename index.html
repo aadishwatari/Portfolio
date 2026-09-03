@@ -228,7 +228,7 @@
       margin-bottom: 25px;
     }
 
-    /* Grid Layout for 15 Works */
+    /* Grid Layout for 16 Works */
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -251,11 +251,11 @@
     }
 
     .image-frame {
-      position: relative;
       border: 1px solid var(--border-green);
       border-radius: 10px;
       overflow: hidden;
       margin-bottom: 10px;
+      position: relative;
     }
 
     .image-frame img {
@@ -270,17 +270,19 @@
       transform: scale(1.04);
     }
 
-    /* Carousel Overlay Badge for Multi-Image Posts */
+    /* Multiple Image Indicator Badge for Carousel Cards */
     .carousel-badge {
       position: absolute;
       top: 8px;
       right: 8px;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(59, 71, 57, 0.85);
       color: #ffffff;
       padding: 3px 8px;
       border-radius: 12px;
       font-size: 0.75rem;
+      font-family: 'Comfortaa', sans-serif;
       pointer-events: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
 
     .card-info h3 {
@@ -320,14 +322,15 @@
     .lightbox-content {
       position: relative;
       display: flex;
-      flex-direction: column;
       align-items: center;
+      justify-content: center;
       max-width: 90%;
+      max-height: 80vh;
     }
 
     .lightbox-img {
       max-width: 100%;
-      max-height: 75vh;
+      max-height: 80vh;
       border: 4px solid #ffffff;
       border-radius: 12px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -352,6 +355,7 @@
       font-family: sans-serif;
       user-select: none;
       transition: transform 0.2s;
+      z-index: 1010;
     }
 
     .close-btn:hover {
@@ -360,31 +364,32 @@
 
     /* Lightbox Navigation Controls */
     .lightbox-nav {
-      display: none;
-      margin-top: 10px;
-      gap: 15px;
-      align-items: center;
-    }
-
-    .lightbox-btn {
-      background: var(--border-green);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.25);
       color: #ffffff;
-      border: 1px solid var(--accent-gold);
-      padding: 6px 16px;
-      border-radius: 20px;
+      border: none;
+      font-size: 2rem;
+      padding: 10px 15px;
       cursor: pointer;
-      font-family: 'Comfortaa', sans-serif;
-      font-size: 0.9rem;
-      transition: background 0.2s;
+      border-radius: 50%;
+      user-select: none;
+      transition: background 0.2s, transform 0.2s;
+      z-index: 1010;
     }
 
-    .lightbox-btn:hover {
-      background: var(--text-title);
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.5);
+      transform: translateY(-50%) scale(1.1);
     }
 
-    .lightbox-counter {
-      color: #ffffff;
-      font-size: 0.9rem;
+    .lightbox-nav.prev {
+      left: -60px;
+    }
+
+    .lightbox-nav.next {
+      right: -60px;
     }
 
     /* Formal Footer Styling */
@@ -528,6 +533,12 @@
       .qr-code-img {
         margin: 0 auto 12px;
       }
+      .lightbox-nav.prev {
+        left: 5px;
+      }
+      .lightbox-nav.next {
+        right: 5px;
+      }
     }
   </style>
 </head>
@@ -577,154 +588,179 @@
 
       <div class="portfolio-grid">
 
-        <!-- Updated First Post: Instagram Multi-Slide Carousel for Psychology Oversimplified -->
-        <article class="design-card" onclick="openMultiLightbox(['1.png', '2.png', '3.png', '4.png', '5.png', '6.png'], '01. Psychology Oversimplified Carousel')">
+        <!-- New Post 1: Psychology Oversimplified Carousel (1.png to 6.png) -->
+        <article class="design-card" onclick="openLightbox(['1.png', '2.png', '3.png', '4.png', '5.png', '6.png'], '01. Psychology Oversimplified Social Media Carousel')">
           <div class="image-frame">
-            <img src="1.png" alt="Psychology Oversimplified Slide 1">
-            <span class="carousel-badge">1/6 🎴</span>
+            <span class="carousel-badge">1/6 ❐</span>
+            <img src="1.png" alt="Design 1 - Psychology Oversimplified">
           </div>
           <div class="card-info">
             <h3>01. Psychology Oversimplified</h3>
-            <p><strong>Style:</strong> Educational Social Media Carousel & Infographic Layout.<br><strong>Inspiration:</strong> Instagram carousels, soft pastel color blocking, accessible mental health communication, and clean minimal typography.</p>
+            <p><strong>Style:</strong> Educational Social Media Carousel Series.<br><strong>Inspiration:</strong> Minimalist infographics, engaging educational slides, and accessible mental health concepts.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D2.png', '02. Mechatronics: Starlight Pulse')">
+        <!-- Former Post 1 -> Now Post 2 -->
+        <article class="design-card" onclick="openLightbox('D1.png', '02. Midnight Melancholia Collage')">
           <div class="image-frame">
-            <img src="D2.png" alt="Design 2">
+            <img src="D1.png" alt="Design 2">
           </div>
           <div class="card-info">
-            <h3>02. Mechatronics: Starlight Pulse</h3>
+            <h3>02. Midnight Melancholia Collage</h3>
+            <p><strong>Style:</strong> Mixed-Media Surreal Collage & Indigo Moodboard.<br><strong>Inspiration:</strong> Dreamy vinyl sleeves, Monet waterlilies, and soft retro indie-pop aesthetics.</p>
+          </div>
+        </article>
+
+        <!-- Former Post 2 -> Now Post 3 -->
+        <article class="design-card" onclick="openLightbox('D2.png', '03. Mechatronics: Starlight Pulse')">
+          <div class="image-frame">
+            <img src="D2.png" alt="Design 3">
+          </div>
+          <div class="card-info">
+            <h3>03. Mechatronics: Starlight Pulse</h3>
             <p><strong>Style:</strong> Cyber-Vintage Poster Design & Tech Retrofuturism.<br><strong>Inspiration:</strong> Industrial halftone textures, starburst geometry, and Y2K tech event flyers.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D3.png', '03. Death in Paradise Cover')">
+        <!-- Former Post 3 -> Now Post 4 -->
+        <article class="design-card" onclick="openLightbox('D3.png', '04. Death in Paradise Cover')">
           <div class="image-frame">
-            <img src="D3.png" alt="Design 3">
+            <img src="D3.png" alt="Design 4">
           </div>
           <div class="card-info">
-            <h3>03. Death in Paradise Cover</h3>
+            <h3>04. Death in Paradise Cover</h3>
             <p><strong>Style:</strong> Dark Romanticism & Gothic Typographic Layout.<br><strong>Inspiration:</strong> Blackletter typography, Victorian botanical borders, and moody noir portraiture.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D4.png', '04. Golden hour Whispers')">
+        <!-- Former Post 4 -> Now Post 5 -->
+        <article class="design-card" onclick="openLightbox('D4.png', '05. Golden hour Whispers')">
           <div class="image-frame">
-            <img src="D4.png" alt="Design 4">
+            <img src="D4.png" alt="Design 5">
           </div>
           <div class="card-info">
-            <h3>04. Golden hour Whispers</h3>
+            <h3>05. Golden hour Whispers</h3>
             <p><strong>Style:</strong> Organic Art Nouveau & Soft Botanical Layout.<br><strong>Inspiration:</strong> Illuminated manuscripts, flowing vine line art, and warm sunlit foliage.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D5.png', '05. Cloaked Shadows & Ripped Silence')">
+        <!-- Former Post 5 -> Now Post 6 -->
+        <article class="design-card" onclick="openLightbox('D5.png', '06. Cloaked Shadows & Ripped Silence')">
           <div class="image-frame">
-            <img src="D5.png" alt="Design 5">
+            <img src="D5.png" alt="Design 6">
           </div>
           <div class="card-info">
-            <h3>05. Cloaked Shadows & Ripped Silence</h3>
+            <h3>06. Cloaked Shadows & Ripped Silence</h3>
             <p><strong>Style:</strong> Grunge Censorship & High-Contrast Monochrome Cover.<br><strong>Inspiration:</strong> Underground zines, distressed paper textures, and enigmatic portrait noir.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D6.png', '06. Echoes of Awadh Lotus Mosaic')">
+        <!-- Former Post 6 -> Now Post 7 -->
+        <article class="design-card" onclick="openLightbox('D6.png', '07. Echoes of Awadh Lotus Mosaic')">
           <div class="image-frame">
-            <img src="D6.png" alt="Design 6">
+            <img src="D6.png" alt="Design 7">
           </div>
           <div class="card-info">
-            <h3>06. Echoes of Awadh Lotus Mosaic</h3>
+            <h3>07. Echoes of Awadh Lotus Mosaic</h3>
             <p><strong>Style:</strong> Royal Cultural Collage & Heritage Scrapbook Art.<br><strong>Inspiration:</strong> Traditional Indian miniature art, vintage postage stamps, and sacred lotus blossoms.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D7.png', '07. Whispering Leaves & Vintage Verses')">
+        <!-- Former Post 7 -> Now Post 8 -->
+        <article class="design-card" onclick="openLightbox('D7.png', '08. Whispering Leaves & Vintage Verses')">
           <div class="image-frame">
-            <img src="D7.png" alt="Design 7">
+            <img src="D7.png" alt="Design 8">
           </div>
           <div class="card-info">
-            <h3>07. Whispering Leaves & Vintage Verses</h3>
+            <h3>08. Whispering Leaves & Vintage Verses</h3>
             <p><strong>Style:</strong> Retro Literary Collage & Classical Hindi Cover Art.<br><strong>Inspiration:</strong> Vintage paperback novels, classical hand mudras, and botanical flora.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D8.png', '08. The Butterfly’s Awakening')">
+        <!-- Former Post 8 -> Now Post 9 -->
+        <article class="design-card" onclick="openLightbox('D8.png', '09. The Butterfly’s Awakening')">
           <div class="image-frame">
-            <img src="D8.png" alt="Design 8">
+            <img src="D8.png" alt="Design 9">
           </div>
           <div class="card-info">
-            <h3>08. The Butterfly’s Awakening</h3>
+            <h3>09. The Butterfly’s Awakening</h3>
             <p><strong>Style:</strong> Neo-Vintage Etching & Aura Gradient Poster.<br><strong>Inspiration:</strong> Victorian line-engraved portraits, vibrant aura glows, and botanical moth etchings.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D9.png', '09. Betty & Ben Porcelain Secrets')">
+        <!-- Former Post 9 -> Now Post 10 -->
+        <article class="design-card" onclick="openLightbox('D9.png', '10. Betty & Ben Porcelain Secrets')">
           <div class="image-frame">
-            <img src="D9.png" alt="Design 9">
+            <img src="D9.png" alt="Design 10">
           </div>
           <div class="card-info">
-            <h3>09. Betty & Ben Porcelain Secrets</h3>
+            <h3>10. Betty & Ben Porcelain Secrets</h3>
             <p><strong>Style:</strong> Delft Blue Emblem & Victorian Cameo Branding.<br><strong>Inspiration:</strong> Antique porcelain patterns, delicate parasol silhouettes, and hand-drawn leafy wreaths.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D10.png', '10. Neon Dreams in Cyber-Hong Kong')">
+        <!-- Former Post 10 -> Now Post 11 -->
+        <article class="design-card" onclick="openLightbox('D10.png', '11. Neon Dreams in Cyber-Hong Kong')">
           <div class="image-frame">
-            <img src="D10.png" alt="Design 10">
+            <img src="D10.png" alt="Design 11">
           </div>
           <div class="card-info">
-            <h3>10. Neon Dreams in Cyber-Hong Kong</h3>
+            <h3>11. Neon Dreams in Cyber-Hong Kong</h3>
             <p><strong>Style:</strong> Cyberpunk Editorial Layout & Urban Streetware Vogue.<br><strong>Inspiration:</strong> Neon-drenched nightscapes, futuristic editorial typography, and high-tech youth culture.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D11.png', '11. Pixie Arcade & Pixel Cafe')">
+        <!-- Former Post 11 -> Now Post 12 -->
+        <article class="design-card" onclick="openLightbox('D11.png', '12. Pixie Arcade & Pixel Cafe')">
           <div class="image-frame">
-            <img src="D11.png" alt="Design 11">
+            <img src="D11.png" alt="Design 12">
           </div>
           <div class="card-info">
-            <h3>11. Pixie Arcade & Pixel Cafe</h3>
+            <h3>12. Pixie Arcade & Pixel Cafe</h3>
             <p><strong>Style:</strong> 8-Bit Retro Gaming Menu & Kawaii Pastel Design.<br><strong>Inspiration:</strong> Nostalgic arcade graphics, pixelated boba tea, and dreamy pink interfaces.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D12.png', '12. Autumn’s Golden Romance')">
+        <!-- Former Post 12 -> Now Post 13 -->
+        <article class="design-card" onclick="openLightbox('D12.png', '13. Autumn’s Golden Romance')">
           <div class="image-frame">
-            <img src="D12.png" alt="Design 12">
+            <img src="D12.png" alt="Design 13">
           </div>
           <div class="card-info">
-            <h3>12. Autumn’s Golden Romance</h3>
+            <h3>13. Autumn’s Golden Romance</h3>
             <p><strong>Style:</strong> Classic Impressionist Book Cover & Scenic Typography.<br><strong>Inspiration:</strong> 19th-century landscape oil paintings, romantic silhouettes, and fall foliage palettes.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D13.png', '13. Midnight Map of Lucknow Verses')">
+        <!-- Former Post 13 -> Now Post 14 -->
+        <article class="design-card" onclick="openLightbox('D13.png', '14. Midnight Map of Lucknow Verses')">
           <div class="image-frame">
-            <img src="D13.png" alt="Design 13">
+            <img src="D13.png" alt="Design 14">
           </div>
           <div class="card-info">
-            <h3>13. Midnight Map of Lucknow Verses</h3>
+            <h3>14. Midnight Map of Lucknow Verses</h3>
             <p><strong>Style:</strong> Cartographic Poster Art & Gold Foil Urdu Calligraphy.<br><strong>Inspiration:</strong> Celestial city roadmaps, Nawabi poetry, and elegant gold-on-navy typography.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D14.png', '14. Marauders & The Enchanted Pond')">
+        <!-- Former Post 14 -> Now Post 15 -->
+        <article class="design-card" onclick="openLightbox('D14.png', '15. Marauders & The Enchanted Pond')">
           <div class="image-frame">
-            <img src="D14.png" alt="Design 14">
+            <img src="D14.png" alt="Design 15">
           </div>
           <div class="card-info">
-            <h3>14. Marauders & The Enchanted Pond</h3>
+            <h3>15. Marauders & The Enchanted Pond</h3>
             <p><strong>Style:</strong> Impressionist Circular Emblem & Oil Texture Artwork.<br><strong>Inspiration:</strong> Claude Monet's water lilies, serene white swans, and vintage gilded lettering.</p>
           </div>
         </article>
 
-        <article class="design-card" onclick="openLightbox('D15.png', '15. Regina’s Y2K Burn Book Scrapbook')">
+        <!-- Former Post 15 -> Now Post 16 -->
+        <article class="design-card" onclick="openLightbox('D15.png', '16. Regina’s Y2K Burn Book Scrapbook')">
           <div class="image-frame">
-            <img src="D15.png" alt="Design 15">
+            <img src="D15.png" alt="Design 16">
           </div>
           <div class="card-info">
-            <h3>15. Regina’s Y2K Burn Book Scrapbook</h3>
+            <h3>16. Regina’s Y2K Burn Book Scrapbook</h3>
             <p><strong>Style:</strong> Punk Ransom-Note Collage & Magenta Y2K Zine Art.<br><strong>Inspiration:</strong> 2000s pop culture, cut-out magazine typography, starbursts, and glossy barcodes.</p>
           </div>
         </article>
@@ -785,80 +821,73 @@
 
   </div>
 
-  <div class="lightbox" id="lightbox" onclick="handleLightboxClick(event)">
-    <span class="close-btn" onclick="closeLightbox()">&times;</span>
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <span class="close-btn" onclick="closeLightbox(event, true)">&times;</span>
+    <button class="lightbox-nav prev" id="lightbox-prev" onclick="changeSlide(-1, event)">&#10094;</button>
     <div class="lightbox-content">
       <img id="lightbox-img" class="lightbox-img" src="" alt="Enlarged View">
-      <div id="lightbox-caption" class="lightbox-caption"></div>
-      <div id="lightbox-nav" class="lightbox-nav">
-        <button class="lightbox-btn" onclick="prevSlide(event)">❮ Prev</button>
-        <span id="lightbox-counter" class="lightbox-counter">1 / 1</span>
-        <button class="lightbox-btn" onclick="nextSlide(event)">Next ❯</button>
-      </div>
     </div>
+    <button class="lightbox-nav next" id="lightbox-next" onclick="changeSlide(1, event)">&#10095;</button>
+    <div id="lightbox-caption" class="lightbox-caption"></div>
   </div>
 
   <script>
-    let currentGalleryImages = [];
-    let currentImageIndex = 0;
-    let currentGalleryTitle = '';
+    let currentImages = [];
+    let currentIndex = 0;
+    let baseTitle = "";
 
     function openLightbox(src, title) {
-      currentGalleryImages = [src];
-      currentImageIndex = 0;
-      currentGalleryTitle = title;
-      updateLightboxDisplay();
+      const lightbox = document.getElementById('lightbox');
+      const prevBtn = document.getElementById('lightbox-prev');
+      const nextBtn = document.getElementById('lightbox-next');
       
-      document.getElementById('lightbox-nav').style.display = 'none';
-      document.getElementById('lightbox').classList.add('active');
+      baseTitle = title;
+
+      if (Array.isArray(src)) {
+        currentImages = src;
+        currentIndex = 0;
+        prevBtn.style.display = 'block';
+        nextBtn.style.display = 'block';
+      } else {
+        currentImages = [src];
+        currentIndex = 0;
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+      }
+
+      updateLightboxContent();
+      lightbox.classList.add('active');
     }
 
-    function openMultiLightbox(imagesArray, title) {
-      currentGalleryImages = imagesArray;
-      currentImageIndex = 0;
-      currentGalleryTitle = title;
-      updateLightboxDisplay();
-
-      document.getElementById('lightbox-nav').style.display = 'flex';
-      document.getElementById('lightbox').classList.add('active');
-    }
-
-    function updateLightboxDisplay() {
+    function updateLightboxContent() {
       const img = document.getElementById('lightbox-img');
       const caption = document.getElementById('lightbox-caption');
-      const counter = document.getElementById('lightbox-counter');
 
-      img.src = currentGalleryImages[currentImageIndex];
-      caption.textContent = currentGalleryTitle;
-      
-      if (currentGalleryImages.length > 1) {
-        counter.textContent = `${currentImageIndex + 1} / ${currentGalleryImages.length}`;
+      img.src = currentImages[currentIndex];
+
+      if (currentImages.length > 1) {
+        caption.textContent = `${baseTitle} (${currentIndex + 1}/${currentImages.length})`;
+      } else {
+        caption.textContent = baseTitle;
       }
     }
 
-    function prevSlide(event) {
+    function changeSlide(direction, event) {
       if (event) event.stopPropagation();
-      if (currentGalleryImages.length <= 1) return;
-      currentImageIndex = (currentImageIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
-      updateLightboxDisplay();
-    }
-
-    function nextSlide(event) {
-      if (event) event.stopPropagation();
-      if (currentGalleryImages.length <= 1) return;
-      currentImageIndex = (currentImageIndex + 1) % currentGalleryImages.length;
-      updateLightboxDisplay();
-    }
-
-    function handleLightboxClick(event) {
-      if (event.target.id === 'lightbox') {
-        closeLightbox();
+      currentIndex += direction;
+      if (currentIndex < 0) {
+        currentIndex = currentImages.length - 1;
+      } else if (currentIndex >= currentImages.length) {
+        currentIndex = 0;
       }
+      updateLightboxContent();
     }
 
-    function closeLightbox() {
-      const lightbox = document.getElementById('lightbox');
-      lightbox.classList.remove('active');
+    function closeLightbox(event, force) {
+      if (force || (event && event.target.id === 'lightbox')) {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+      }
     }
 
     /* Canvas Animation Script: Golden Cursor Sparkles, Swan Energy Lightning & Butterflies */
